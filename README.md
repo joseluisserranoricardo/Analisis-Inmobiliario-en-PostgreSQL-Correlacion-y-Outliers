@@ -60,6 +60,7 @@ SELECT corr(price, sqft_living) AS correlacion_precio_tamaño
 FROM houses;
 ```
 ![correlacion](https://github.com/user-attachments/assets/744f5199-309a-4ff6-98a6-f2546fcb8ee1)
+
 Con esto se identificó que el tamaño de la propiedad influye fuertemente en el precio de la vivienda.
 
 ## 4. Detección de Outliers (Z-Score)
@@ -76,6 +77,7 @@ ORDER BY price DESC;
 ```
 Este análisis ayuda a separar propiedades de lujo o posibles errores de entrada de datos del mercado general.
 ![outliers](https://github.com/user-attachments/assets/1aa5e150-3e2c-4a72-8991-12f2bc2acd62)
+
 # 🛠️ Requisitos
 
 PostgreSQL 12 o superior.
