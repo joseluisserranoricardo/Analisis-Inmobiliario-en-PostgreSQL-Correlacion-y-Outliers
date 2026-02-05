@@ -38,17 +38,17 @@ CREATE TABLE houses (
     sqft_lot15 INT
 );
  ```
-##2. Ingesta de Datos (ETL)
+## 2. Ingesta de Datos (ETL)
 
 Para cargar el archivo CSV directamente desde el disco local. Nota: Se utiliza '/' para evitar errores de escape de caracteres en Windows.
 ```sql
 COPY houses 
-FROM 'C:/kc_house_data.csv' 
+FROM 'C:\kc_house_data.csv' 
 WITH (FORMAT csv, HEADER true, DELIMITER ',');
 ```
 -- Verificación de carga
 ```sql
-SELECT COUNT(*) AS total_registros FROM houses;
+select * from houses
 ```
 ## 📈 Análisis Estadístico
 
@@ -56,8 +56,7 @@ SELECT COUNT(*) AS total_registros FROM houses;
 
 Utilizamos la función nativa corr() para medir la relación lineal entre el precio y la superficie habitable. El coeficiente de Pearson varía entre -1 y 1.
 ```sql
-SELECT 
-    ROUND(corr(price, sqft_living)::numeric, 4) AS correlacion_precio_tamaño
+SELECT corr(price, sqft_living) AS correlacion_precio_tamaño
 FROM houses;
 ```
 ![correlacion](https://github.com/user-attachments/assets/744f5199-309a-4ff6-98a6-f2546fcb8ee1)
@@ -67,11 +66,7 @@ Con esto se identificó que el tamaño de la propiedad influye fuertemente en el
 
 Identificamos propiedades que se desvían significativamente de la media. En este caso, buscamos precios que superan 3 desviaciones estándar por encima del promedio.
 ```sql
-SELECT 
-    id, 
-    price, 
-    sqft_living,
-    ROUND((price - (SELECT AVG(price) FROM houses)) / (SELECT STDDEV(price) FROM houses), 2) AS z_score
+SELECT id, price, sqft_living
 FROM houses
 WHERE price > (
     SELECT AVG(price) + (3 * stddev(price)) 
