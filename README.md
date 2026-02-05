@@ -10,6 +10,7 @@ Volumen: ~21,600 registros.
 
 ## 🛠️ 1. Configuración del Entorno
 Crear la tabla en PostgreSQL
+
 Ejecuta el siguiente script en el Query Tool de pgAdmin para preparar la base de datos:
 
 ```sql
@@ -38,6 +39,7 @@ CREATE TABLE houses (
 );
  ```
 ##2. Ingesta de Datos (ETL)
+
 Para cargar el archivo CSV directamente desde el disco local. Nota: Se utiliza '/' para evitar errores de escape de caracteres en Windows.
 ```sql
 COPY houses 
@@ -49,7 +51,9 @@ WITH (FORMAT csv, HEADER true, DELIMITER ',');
 SELECT COUNT(*) AS total_registros FROM houses;
 ```
 ## 📈 Análisis Estadístico
+
 ## 3. Cálculo de Correlación
+
 Utilizamos la función nativa corr() para medir la relación lineal entre el precio y la superficie habitable. El coeficiente de Pearson varía entre -1 y 1.
 ```sql
 SELECT 
@@ -58,7 +62,9 @@ FROM houses;
 ```
 ![correlacion](https://github.com/user-attachments/assets/744f5199-309a-4ff6-98a6-f2546fcb8ee1)
 Con esto se identificó que el tamaño de la propiedad influye fuertemente en el precio de la vivienda.
+
 ## 4. Detección de Outliers (Z-Score)
+
 Identificamos propiedades que se desvían significativamente de la media. En este caso, buscamos precios que superan 3 desviaciones estándar por encima del promedio.
 ```sql
 SELECT 
