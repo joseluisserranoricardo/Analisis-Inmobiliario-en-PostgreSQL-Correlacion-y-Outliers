@@ -1,14 +1,14 @@
-### 🏠 Análisis Inmobiliario en PostgreSQL: Correlación y Outliers
+# 🏠 Análisis Inmobiliario en PostgreSQL: Correlación y Outliers
 Este proyecto realiza un análisis estadístico avanzado sobre el dataset de ventas de casas en King County (Seattle). El objetivo es identificar la relación entre las características físicas de las viviendas y su precio, además de detectar valores atípicos (outliers) mediante métodos estadísticos.
 
-📊 Dataset Utilizado
+### 📊 Dataset Utilizado
 Nombre: House Sales in King County, USA.
 
 Origen: Kaggle.
 
 Volumen: ~21,600 registros.
 
-## 🛠️ 1. Configuración del Entorno
+### 🛠️ 1. Configuración del Entorno
 Crear la tabla en PostgreSQL
 
 Ejecuta el siguiente script en el Query Tool de pgAdmin para preparar la base de datos:
@@ -38,7 +38,7 @@ CREATE TABLE houses (
     sqft_lot15 INT
 );
  ```
-## 2. Ingesta de Datos (ETL)
+### 2. Ingesta de Datos (ETL)
 
 Para cargar el archivo CSV directamente desde el disco local. Nota: Se utiliza '/' para evitar errores de escape de caracteres en Windows.
 ```sql
@@ -52,7 +52,7 @@ select * from houses
 ```
 ## 📈 Análisis Estadístico
 
-## 3. Cálculo de Correlación
+### 3. Cálculo de Correlación
 
 Utilizamos la función nativa corr() para medir la relación lineal entre el precio y la superficie habitable. El coeficiente de Pearson varía entre -1 y 1.
 ```sql
@@ -63,7 +63,7 @@ FROM houses;
 
 Con esto se identificó que el tamaño de la propiedad influye fuertemente en el precio de la vivienda.
 
-## 4. Detección de Outliers (Z-Score)
+### 4. Detección de Outliers (Z-Score)
 
 Identificamos propiedades que se desvían significativamente de la media. En este caso, buscamos precios que superan 3 desviaciones estándar por encima del promedio.
 ```sql
@@ -78,7 +78,7 @@ ORDER BY price DESC;
 Este análisis ayuda a separar propiedades de lujo o posibles errores de entrada de datos del mercado general.
 ![outliers](https://github.com/user-attachments/assets/1aa5e150-3e2c-4a72-8991-12f2bc2acd62)
 
-# 🛠️ Requisitos
+## 🛠️ Requisitos
 
 PostgreSQL 12 o superior.
 
